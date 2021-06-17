@@ -1,0 +1,41 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Microsoft
+Amazon
+Implement the next permutation, which rearranges numbers into the numerically next greater permutation of numbers for a given array A of size N.
+
+If such arrangement is not possible, it must be rearranged as the lowest possible order i.e., sorted in an ascending order.
+
+Note:
+
+1. The replacement must be in-place, do **not** allocate extra memory.
+2. DO NOT USE LIBRARY FUNCTION FOR NEXT PERMUTATION. Use of Library functions will disqualify your submission retroactively and will give you penalty points.
+
+Solution is below: 
+*/
+
+vector<int> Solution::nextPermutation(vector<int> &A) {
+    
+    int i,j,x,y,n=A.size();
+    if(n == 1)
+        return A;
+    for(i=n-2;i>=0;i--)
+    {
+        if(A[i+1]>A[i])
+            break;
+    }
+    if(i == -1){
+        reverse(A.begin(),A.end());
+        return A;}
+    
+    for(j=n-1;j>i;j--)
+    {
+        if(A[j]>A[i])
+            break;
+    }
+    swap(A[j],A[i]);
+    reverse(A.begin()+i+1,A.end());
+    return A;
+}

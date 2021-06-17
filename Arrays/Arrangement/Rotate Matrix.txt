@@ -1,0 +1,27 @@
+/*
+This Solution is By Dhruv Walia
+
+You are given an n x n 2D matrix representing an image.
+
+Rotate the image by 90 degrees (clockwise).
+
+You need to do this in place.
+
+Note that if you end up using an additional array, you will only receive partial score.
+
+Solution is below: 
+*/
+
+void Solution::rotate(vector<vector<int> > &a) {
+    
+    int i,j,n = a.size(),k;
+    for(i=0;i<n;i++)
+    {
+        for(j=i+1;j<n;j++)
+            swap(a[i][j],a[j][i]);
+    }
+    for(i=0;i<n;i++)
+    {
+        reverse(a[i].begin(),a[i].end());
+    }
+}

@@ -1,0 +1,42 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Flipkart
+Problem Description
+
+Given an integer array A of size N.
+
+You need to check that whether there exist a element which is strictly greater than all the elements on left of it and strictly smaller than all the elements on right of it.
+
+If it exists return 1 else return 0.
+
+NOTE:
+
+Do not consider the corner elements i.e A[0] and A[N-1] as the answer.
+
+Solution is below:
+*/
+
+int Solution::perfectPeak(vector<int> &a) {
+
+    int i,j,n = a.size(),ans = 0;
+    int min_r[n],max_l[n];
+    min_r[n-1] = a[n-1];
+    for(i=n-2;i>=0;i--)
+    {
+        min_r[i] = min(a[i+1],min_r[i+1]);
+    }
+    max_l[0] = a[0];
+    for(i=1;i<n;i++)
+        max_l[i] = max(a[i-1],max_l[i-1]);
+    for(i=1;i<n-1;i++)
+    {
+        if(max_l[i]<a[i] && min_r[i]>a[i])
+            return 1;
+    }
+    return 0;
+    // 5, 1, 4, 3, 6, 8, 10, 7, 9
+    // 5, 5, 5, 5, 5, 6, 8, 10, 10
+    // 1, 3, 3, 6, 7, 7, 7, 9, 9
+}

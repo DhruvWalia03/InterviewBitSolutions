@@ -1,0 +1,40 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Goldman Sachs
+Amazon
+
+Given a positive integer n and a string s consisting only of letters D or I, you have to find any permutation of first n positive integer that satisfy the given input string.
+
+D means the next number is smaller, while I means the next number is greater.
+
+Notes
+
+1. Length of given string s will always equal to n - 1
+2. Your solution should run in linear time and space.
+
+Solution is below: 
+*/
+
+vector<int> Solution::findPerm(const string s, int B) {
+    
+    int i,j,x,y,n=s.length();
+    vector<int> v;
+    v.push_back(1);
+    if(n == 1)
+        return v;
+    v.clear();
+    x = 1; y = n;
+    for(i=n-1;i>=0;i--)
+    {
+        if(s[i] == 'D')
+            v.push_back(x++);
+        else
+            v.push_back(y--);
+    }
+    v.push_back(y);
+    reverse(v.begin(),v.end());
+    return v;
+
+}
