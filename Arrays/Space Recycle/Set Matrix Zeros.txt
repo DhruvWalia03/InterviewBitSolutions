@@ -1,0 +1,40 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Oracle
+Amazon
+
+Given a matrix, A of size M x N of 0s and 1s. If an element is 0, set its entire row and column to 0.
+
+Note: This will be evaluated on the extra memory used. Try to minimize the space and time complexity.
+
+I have used O(n) space can be optimized to O(1) space
+
+Solution is below: 
+*/
+
+void Solution::setZeroes(vector<vector<int> > &A) {
+    
+    int i,j,k,n=A.size(),m=A[0].size();
+    map<int,int> row,col;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            if(A[i][j] == 0)
+                row[i]++,col[j]++;
+        }
+    }
+    for(auto f:row)
+    {
+        for(i=0;i<m;i++)
+            A[f.first][i] = 0;
+    }
+    for(auto f:col)
+    {
+        for(i=0;i<n;i++)
+            A[i][f.first] = 0;
+    }
+
+}

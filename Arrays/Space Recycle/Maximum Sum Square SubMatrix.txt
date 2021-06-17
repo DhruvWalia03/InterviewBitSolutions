@@ -1,0 +1,40 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+DE Shaw
+Problem Description
+
+Given a 2D integer matrix A of size N x N find a B x B submatrix where B<= N and B>= 1, such that sum of all the elements in submatrix is maximum.
+
+Problem Constraints
+1 <= N <= 103.
+1 <= B <= N
+-102 <= A[i][j] <= 102.
+
+Solution is below: 
+*/
+
+int Solution::solve(vector<vector<int> > &A, int B)
+{
+    int r = A.size(),c=A[0].size();
+    int dp[r+1][c+1];
+    memset(dp,0,sizeof(dp));
+    for(int i=1;i<=r;i++)
+    {
+        for(int j=1;j<=c;j++)
+        {
+            dp[i][j] = A[i-1][j-1] + dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1];
+        }
+    }
+    int sum = INT_MIN;
+    for(int i=1;i<=r;i++)
+    {
+        for(int j=1;j<=c;j++)
+        {
+            if(i-B >=0 && j-B >= 0)
+                sum = max(sum,dp[i][j]-dp[i-B][j]-dp[i][j-B]+dp[i-B][j-B]);
+        }
+    }
+    return sum;
+}
