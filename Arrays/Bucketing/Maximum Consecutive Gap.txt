@@ -1,0 +1,31 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Hunan Asset
+Given an unsorted array, find the maximum difference between the successive elements in its sorted form.
+
+Try to solve it in linear time/space.
+
+Solution is below: 
+*/
+
+int Solution::maximumGap(const vector<int> &A) {
+    
+    int i,n=A.size(),ans = 0;
+    priority_queue<int> mp;
+    for(i=0;i<n;i++)
+        mp.push(A[i]);
+    if(n<2)
+        return ans;
+    int x = mp.top();
+    mp.pop();
+    while(!mp.empty())
+    {
+        int y = mp.top();
+        mp.pop();
+        ans = max(ans,x-y);
+        x = y;
+    }
+    return ans;
+}
