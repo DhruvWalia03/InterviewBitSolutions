@@ -1,0 +1,38 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Facebook
+Paypal
+Yahoo
+Microsoft
+LinkedIn
+Amazon
+Goldman Sachs
+
+Find the contiguous subarray within an array, A of length N which has the largest sum.
+
+SOLUTION IS BELOW
+*/
+
+int Solution::maxSubArray(const vector<int> &a) {
+    
+    int i,j,ans = -1e9+7,tans = 0, n = a.size();
+    for(i=0;i<n;i++)
+    {
+        if(a[i]<0 && tans+a[i]<0){
+            tans = 0;continue;}
+        else tans += a[i];
+        cout << tans << " ";
+        ans = max(ans,tans);
+    }
+    if(tans == 0)
+    {
+        tans = -1e9+7;
+        for(i=0;i<n;i++)
+            tans = max(tans,a[i]);
+        ans = tans;
+    }
+    return ans;
+    
+}

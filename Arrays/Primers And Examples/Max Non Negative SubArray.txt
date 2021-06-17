@@ -1,0 +1,67 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Google
+
+Given an array of integers, A of length N, find out the maximum sum sub-array of non negative numbers from A.
+
+The sub-array should be contiguous i.e., a sub-array created by choosing the second and fourth element and skipping the third element is invalid.
+
+Maximum sub-array is defined in terms of the sum of the elements in the sub-array.
+
+Find and return the required subarray.
+
+NOTE:
+
+1) If there is a tie, then compare with segment's length and return segment which has maximum length.
+2) If there is still a tie, then return the segment with minimum starting index.
+
+
+Problem Constraints
+1 <= N <= 105
+-109 <= A[i] <= 109
+
+Solution is below: 
+*/
+
+vector<int> Solution::maxset(vector<int> &a) {
+    
+    int i,j,x,y,n = a.size();
+    long long tsum,sum;
+    vector<int> t,ans;
+    tsum = 0; sum = -1;
+    for(i=0;i<n;i++)
+    {
+        if(a[i]<0)
+        {
+            if(sum<tsum)
+            {
+                sum = tsum;
+                ans = t;
+            }
+            else if(sum==tsum && ans.size()>t.size())
+            {
+                ans = t;
+            }
+            tsum = 0;
+            t.clear();
+        }
+        else
+            t.push_back(a[i]),tsum += a[i];
+    }
+    if(sum<tsum)
+    {
+        sum = tsum;
+        ans = t;
+    }
+    else if(sum==tsum && ans.size()<t.size())
+    {
+        ans = t;
+    }
+    tsum = 0;
+    t.clear();
+    return ans;
+}
+
+

@@ -1,0 +1,46 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+EzCred
+Problem Description
+
+You are given a 1D integer array B containing A integers.
+
+Count the number of ways to split all the elements of the array into 3 contiguous parts so that the sum of elements in each part is the same.
+
+Such that : sum(B[1],..B[i]) = sum(B[i+1],...B[j]) = sum(B[j+1],...B[n])
+
+Solution is below:
+*/
+
+int Solution::solve(int A, vector<int> &B) {
+    
+    if(A<=2)
+        return 0;
+    int prefix[A]={0};
+    int y_r[A] = {0};
+    prefix[0] = B[0];
+    int i,j,x,y,z,ans = 0;
+    for(i=1;i<A;i++)
+        prefix[i] = prefix[i-1]+B[i];
+    x = prefix[A-1];
+    if(x%3 != 0)
+        return 0;
+    x = x/3;
+    y = 2*x;
+    z = 3*x;
+    j = 0;
+    for(i=A-2;i>=0;i--)
+    {
+        y_r[i] = j;
+        if(prefix[i] == y)
+            j++;
+    }
+    for(i=0;i<A;i++)
+    {
+        if(prefix[i] == x)
+            ans += y_r[i];
+    }
+    return ans;
+}

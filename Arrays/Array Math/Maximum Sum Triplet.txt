@@ -1,0 +1,47 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Directi
+Problem Description
+
+Given an array A containing N integers.
+
+You need to find the maximum sum of triplet ( Ai + Aj + Ak ) such that 0 <= i < j < k < N and Ai < Aj < Ak.
+
+If no such triplet exist return 0.
+
+
+
+Problem Constraints
+3 <= N <= 105.
+
+1 <= A[i] <= 108.
+
+SOLUTION IS BELOW
+*/
+
+int Solution::solve(vector<int> &a) {
+    
+    int i,j,x,y,n = a.size(),ans = 0;
+    int max_r[n];
+    max_r[n-1] = a[n-1];
+    max_r[n-2] = a[n-1];
+    for(i=n-3;i>=0;i--)
+        max_r[i] = max(max_r[i+1],a[i+1]);
+    set<int> s;
+    s.insert(a[0]);
+    for(i=1;i<n-1;i++)
+    {
+        auto f = s.lower_bound(a[i]-1);
+        if(f == s.begin() || a[i] >= max_r[i])
+        {
+            s.insert(a[i]);
+            continue;
+        }
+        f--; x = *f;
+        ans = max(ans,x+max_r[i]+a[i]);
+        s.insert(a[i]);
+    }
+    return ans;
+}
