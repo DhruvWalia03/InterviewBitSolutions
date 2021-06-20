@@ -1,0 +1,57 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Facebook
+
+Problem Description
+
+Given an integer A you need to find the Ath fibonacci number modulo 109 + 7.
+
+The first fibonacci number F1 = 1
+
+The first fibonacci number F2 = 1
+
+The nth fibonacci number Fn = Fn-1 + Fn-2 (n > 2)
+
+Problem Constraints
+1 <= A <= 109.
+
+Solution is below: 
+We have used Matrix Multiplication Technique. For Futher Understanding go to method 5 at https://www.geeksforgeeks.org/program-for-nth-fibonacci-number/
+*/
+
+int mod = 1e9+7;
+
+void multiply(long long F[2][2], long long M[2][2])
+{
+    long long x = ((F[0][0]%mod * M[0][0]%mod)%mod + (F[0][1]%mod * M[1][0]%mod)%mod)%mod;
+    long long y = ((F[0][0]%mod * M[0][1]%mod)%mod + (F[0][1]%mod * M[1][1]%mod)%mod)%mod;
+    long long z = ((F[1][0]%mod * M[0][0]%mod)%mod + (F[1][1]%mod * M[1][0]%mod)%mod)%mod;
+    long long w = ((F[1][0]%mod * M[0][1]%mod)%mod + (F[1][1]%mod * M[1][1]%mod)%mod)%mod;
+     
+    F[0][0] = x%mod;
+    F[0][1] = y%mod;
+    F[1][0] = z%mod;
+    F[1][1] = w%mod;
+}
+
+void power(long long F[2][2], long long n)
+{
+    if(n == 0 || n == 1)
+       return;
+    long long M[2][2] = {{1, 1}, {1, 0}};
+    power(F, n / 2);
+    multiply(F, F);
+    if (n % 2 != 0)
+        multiply(F, M);
+}
+
+int Solution::solve(int n) {
+    
+    long long F[2][2] = {{1, 1}, {1, 0}};
+    if (n == 0)
+        return 0;
+    power(F, n - 1);
+    return F[0][0]%mod;
+}

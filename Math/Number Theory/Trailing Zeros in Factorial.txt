@@ -1,0 +1,28 @@
+/*
+This Solution is By Dhruv Walia
+
+Problem Description
+
+Given an integer A, return the number of trailing zeroes in A!.
+
+Note: Your solution should be in logarithmic time complexity.
+
+
+
+**Problem Constraints**
+1 <= A <= 10000
+
+
+Solution is below: 
+*/
+
+int Solution::trailingZeroes(int A) {
+ 
+    int ans = 0, y = 5;
+    while(A>=y)
+    {
+        ans += (A/y);
+        y *= 5;
+    }
+    return ans;
+}

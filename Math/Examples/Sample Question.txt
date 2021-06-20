@@ -1,0 +1,17 @@
+/*
+This Solution is By Dhruv Walia
+
+Given two integers A and B. Find the sum of these integers as a modulo of 107.
+
+Problem Constraints
+0 <= A, B <= 109
+
+Solution is below: 
+*/
+
+int Solution::solve(int A, int B) {
+
+    int mod  = 1e7;
+    return (A%mod + B%mod)%mod;
+
+}

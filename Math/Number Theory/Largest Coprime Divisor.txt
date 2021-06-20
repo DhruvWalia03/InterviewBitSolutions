@@ -1,0 +1,20 @@
+/*
+This Solution is By Dhruv Walia
+
+You are given two positive numbers A and B. You need to find the maximum valued integer X such that:
+
+X divides A i.e. A % X = 0
+X and B are co-prime i.e. gcd(X, B) = 1
+
+Solution is below: 
+*/
+
+int Solution::cpFact(int A, int B) {
+
+    // maximum element that divides A is A itself
+    // therefore we start checking from it till gcd(x,B) ==1
+
+    while(__gcd(A,B) != 1)
+        A /= __gcd(A,B);
+    return A;
+}

@@ -1,0 +1,60 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Housing
+Zenefits
+Microsoft
+
+Given a string, find the rank of the string amongst its permutations sorted lexicographically.
+Assume that no characters are repeated.
+
+Example :
+
+Input : 'acb'
+Output : 2
+
+The order permutations with letters 'a', 'c', and 'b' : 
+abc
+acb
+bac
+bca
+cab
+cba
+
+Solution is below: 
+*/
+
+int fact[1005], mod = 1e6+3;
+void factorial(int n)
+{
+    fact[0] = 1;
+    for(int i = 1;i<=n;i++)
+        fact[i] = (i%mod * fact[i-1]%mod)%mod;
+}
+
+int Solution::findRank(string A) {
+    
+    int i,j,n = A.length(),ans=0,c;
+    factorial(n);
+    vector<int> pos;
+    while(A[i]!='\0')
+    {
+        j=i;c=0;
+        while(A[j]!='\0')
+        {
+            if(A[i]>A[j])
+                c++;
+            j++;
+        }
+        pos.push_back(c);
+        i++;
+    }
+    i = pos.size()-1 ; j=0;
+    while(i>=0)
+    {
+        ans = (ans%mod + (pos[i]%mod * fact[j]%mod)%mod)%mod;
+        j++;i--;
+    }
+    return ans+1;
+}

@@ -1,0 +1,26 @@
+/*
+This Solution is By Dhruv Walia
+
+Hamming distance between two non-negative integers is defined as the number of positions at which the corresponding bits are different.
+
+Given an array A of N non-negative integers, find the sum of hamming distances of all pairs of integers in the array. Return the answer modulo 1000000007.
+
+Solution is below: 
+*/
+
+int Solution::hammingDistance(const vector<int> &A) {
+ 
+    int i,j,n = A.size(),cnt = 0;
+    long long ans = 0,mod = 1e9+7;
+    for(i=0;i<=31;i++) // we have 32 bits in integers
+    {
+        cnt = 0;
+        for(j=0;j<n;j++) // count all the elements with ith bit on and pairing them with off ith bit results one combination
+        {
+            if(A[j]&(1<<i))
+                cnt++;
+        }
+        ans = (ans%mod + ((cnt%mod * (n-cnt)%mod)%mod * 2)%mod)%mod;
+    }
+    return ans;
+}

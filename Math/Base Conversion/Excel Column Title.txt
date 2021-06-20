@@ -1,0 +1,44 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+
+Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+
+For example:
+
+    1 -> A
+    2 -> B
+    3 -> C
+    ...
+    26 -> Z
+    27 -> AA
+    28 -> AB 
+    
+ */
+
+Solution is below: 
+*/
+
+string Solution::convertToTitle(int n) {
+ 
+    int i,j = 1,x;
+    string ans = "";
+    while(n>0)
+    {
+        int rem=n%26;
+        if(rem)
+        {
+            ans += (rem-1+'A');
+            n=n/26;
+        }
+        else
+        {
+            ans += "Z";
+            n=n/26-1;
+        }
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
