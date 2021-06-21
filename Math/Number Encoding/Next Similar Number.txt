@@ -1,0 +1,23 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+Problem Description
+
+Given a number A in a form of string.
+
+You have to find the smallest number that has same set of digits as A and is greater than A.
+
+If A is the greatest possible number with its set of digits, then return -1.
+
+Solution is below: 
+*/
+
+string Solution::solve(string A) {
+
+    if(next_permutation(A.begin(),A.end()))
+        return A;
+    return "-1";
+
+}
