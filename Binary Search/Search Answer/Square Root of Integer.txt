@@ -1,0 +1,33 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Facebook
+Amazon
+Microsoft
+
+Given an integar A.
+
+Compute and return the square root of A.
+
+If A is not a perfect square, return floor(sqrt(A)).
+
+DO NOT USE SQRT FUNCTION FROM STANDARD LIBRARY
+
+Solution is below: 
+*/
+
+int Solution::sqrt(int A) {
+
+    long long low=0,high=A,mid,ans=0;
+    while(low<=high)
+    {
+        mid = (low + high)/2;
+        if(mid*mid == A)
+            return mid;
+        else if(mid*mid < A)
+            low = mid+1,ans = max(ans,mid);
+        else high = mid-1;
+    }
+    return ans;
+}

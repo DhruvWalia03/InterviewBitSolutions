@@ -1,0 +1,64 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Google
+
+Given an array of integers A of size N and an integer B.
+
+College library has N bags,the ith book has A[i] number of pages.
+
+You have to allocate books to B number of students so that maximum number of pages alloted to a student is minimum.
+
+A book will be allocated to exactly one student.
+Each student has to be allocated at least one book.
+Allotment should be in contiguous order, for example: A student cannot be allocated book 1 and book 3, skipping book 2.
+Calculate and return that minimum possible number.
+
+NOTE: Return -1 if a valid assignment is not possible.
+
+Solution is below: 
+*/
+
+int Solution::books(vector<int> &arr, int m) {
+        
+        long long i,j,x=0,y=0,ans=0,n=arr.size();
+        for(i=0;i<n;i++)
+        {
+            x = max((long long)arr[i],x);
+            y+=arr[i];
+        }
+        if(n==0)
+            return -1;
+        if(m>n)
+            return -1;
+        if(m==n)
+            return x;
+        if(m==1)
+            return y;
+        long long l=x,h=y,tans=1e12;
+        while(l<h)
+        {
+            long long mid = (l+h)/2;
+            x=0;ans=0;
+            for(i=0,j=0;i<n;i++)
+            {
+                if(x+arr[i]<=mid)
+                    x+=arr[i];
+                else
+                {
+                    ans=max(x,ans);
+                    x=arr[i];
+                    j++;
+                }
+            }
+            ans = max(x,ans);
+            if(j<m)
+                h = mid,tans=min(ans,tans);
+            else
+                l=mid+1;
+        }
+        if(tans == 1e12)
+            return -1;
+        return tans;
+}

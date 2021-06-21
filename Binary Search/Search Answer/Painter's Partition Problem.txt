@@ -1,0 +1,62 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Google
+Codenation
+
+Given 2 integers A and B and an array of integars C of size N.
+
+Element C[i] represents length of ith board.
+
+You have to paint all N boards [C0, C1, C2, C3 … CN-1]. There are A painters available and each of them takes B units of time to paint 1 unit of board.
+
+Calculate and return minimum time required to paint all boards under the constraints that any painter will only paint contiguous sections of board.
+
+2 painters cannot share a board to paint. That is to say, a board
+cannot be painted partially by one painter, and partially by another.
+A painter will only paint contiguous boards. Which means a
+configuration where painter 1 paints board 1 and 3 but not 2 is
+invalid.
+Return the ans % 10000003
+
+Solution is below: 
+*/
+
+int mod = 1e7+3;
+int Solution::paint(int m, int B, vector<int> &arr) {
+
+    long long i,j,x=0,y=0,ans=0,n=arr.size();
+    for(i=0;i<n;i++)
+    {
+        x = max((long long)arr[i],x);
+        y+=arr[i];
+    }
+    if(m>=n)
+        return (x%mod*B%mod)%mod;
+    if(m==1)
+        return (y%mod*B%mod)%mod;
+    long long l=x,h=y,tans=1e12;
+    while(l<h)
+    {
+        long long mid = (l+h)/2;
+        x=0;ans=0;
+        for(i=0,j=0;i<n;i++)
+        {
+            if(x+arr[i]<=mid)
+                x += arr[i];
+            else
+            {
+                ans=max(x,ans);
+                x=arr[i];
+                j++;
+            }
+        }
+        ans = max(x,ans);
+        if(j<m)
+            h = mid,tans=min(ans,tans);
+        else
+            l=mid+1;
+    }
+    return (tans%mod*B%mod)%mod;
+}

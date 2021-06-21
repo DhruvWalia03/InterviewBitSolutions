@@ -1,0 +1,25 @@
+/*
+This Solution is By Dhruv Walia
+
+Problem Description
+
+Given an sorted array A of size N. Find number of elements which are less than or equal to B.
+
+NOTE: Expected Time Complexity O(log N)
+
+
+
+Problem Constraints
+1 <= N <= 106
+
+1 <= A[i], B <= 109
+
+Solution is below: 
+*/
+
+int Solution::solve(vector<int> &A, int B) {
+
+    int ans = lower_bound(A.begin(),A.end(),B+1)-A.begin();
+    return ans;
+
+}

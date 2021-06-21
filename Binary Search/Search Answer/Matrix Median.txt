@@ -1,0 +1,50 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+Given a matrix of integers A of size N x M in which each row is sorted.
+
+Find an return the overall median of the matrix A.
+
+Note: No extra memory is allowed.
+
+Note: Rows are numbered from top to bottom and columns are numbered from left to right.
+
+Input 1:
+    A = [   [1, 3, 5],
+            [2, 6, 9],
+            [3, 6, 9]   ]
+Output 1:
+    5
+
+Solution is below: 
+*/
+
+int binarySearch(int t,int min_e,int max_e,int r,int c,vector<vector<int>> &m)
+{
+    int x;
+    while(min_e<max_e)
+    {
+        int mid=min_e+(max_e-min_e)/2;
+        x=0;
+        for(int i=0;i<r;i++)
+            x += upper_bound(m[i].begin(),m[i].end(),mid)-m[i].begin();
+        if(x<t)
+            min_e=mid+1;
+        else max_e=mid;
+    }
+    return min_e;
+}
+
+int Solution::findMedian(vector<vector<int> > &m) {
+    int i,j,max_e=0,min_e=INT_MAX,r,c;
+    r = m.size();
+    c = m[0].size();
+    for(i=0;i<r;i++)
+    {
+        min_e=min(min_e,m[i][0]);
+        max_e=max(max_e,m[i][c-1]);
+    }
+    return binarySearch((r*c+1)/2,min_e,max_e,r,c,m);
+}

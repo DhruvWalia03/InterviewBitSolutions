@@ -1,0 +1,34 @@
+/*
+This Solution is By Dhruv Walia
+
+Given a matrix of integers A of size N x M and an integer B.
+
+Write an efficient algorithm that searches for integar B in matrix A.
+
+This matrix A has the following properties:
+
+Integers in each row are sorted from left to right.
+The first integer of each row is greater than or equal to the last integer of the previous row.
+Return 1 if B is present in A, else return 0.
+
+Solution is below: 
+*/
+
+int Solution::searchMatrix(vector<vector<int> > &a, int B) {
+    int i,j,ans=0,n,m;
+    n = a.size();
+    m = a[0].size();
+    for(i=0;i<n;i++)
+    {
+        if(a[i][m-1]>=B)
+            break;
+    }
+    if(i==n)
+        return ans;
+    for(j=0;j<m;j++)
+    {
+        if(a[i][j]==B)
+            ans = 1;
+    }
+    return ans;
+}

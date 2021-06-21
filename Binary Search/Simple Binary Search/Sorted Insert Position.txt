@@ -1,0 +1,31 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Yahoo
+
+Problem Description
+
+Given a sorted array A and a target value B, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+You may assume no duplicates in the array.
+
+**Problem Constraints**
+1 <= |A| <= 100000
+1 <= B <= 109
+
+Input 1:
+A = [1, 3, 5, 6]
+B = 5
+
+Output 1:
+2
+
+Solution is below: 
+*/
+
+int Solution::searchInsert(vector<int> &A, int B) {
+
+    int ans = lower_bound(A.begin(),A.end(),B)-A.begin();
+    return ans;
+
+}
