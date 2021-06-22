@@ -1,0 +1,39 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Google
+LinkedIn
+
+Implement pow(x, n) % d.
+
+In other words, given x, n and d,
+
+find (xn % d)
+
+Note that remainders on division cannot be negative.
+In other words, make sure the answer you return is non negative.
+
+Input : x = 2, n = 3, d = 3
+Output : 2
+
+2^3 % 3 = 8 % 3 = 2.
+
+Solution is below: 
+*/
+
+int Solution::pow(int x, int y, int mod) {
+    long long res = 1,p = x%mod;
+    while(y>0)
+    {
+        if(y%2==1)
+            res = (res%mod * p%mod)%mod;
+        p = (p%mod * p%mod)%mod;
+        y /= 2;
+    }
+    if(res<0){
+        res=(mod-abs(res)%mod);
+        return res;
+    }
+    return res%mod;
+}

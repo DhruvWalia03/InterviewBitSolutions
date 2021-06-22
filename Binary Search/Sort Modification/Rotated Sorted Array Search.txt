@@ -1,0 +1,60 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Facebook
+Google
+Microsoft
+Amazon
+
+Given an array of integers A of size N and an integer B.
+
+array A is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2 ).
+
+You are given a target value B to search. If found in the array, return its index, otherwise return -1.
+
+You may assume no duplicate exists in the array.
+
+NOTE:- Array A was sorted in non-decreasing order before rotation.
+
+Solution is below: 
+*/
+
+int findPivot(int low,int high,const vector<int> A)
+{
+    while(low<high)
+    {
+        int mid = (low+high)/2;
+        if(A[mid]>A[high])
+            low = mid+1;
+        else high = mid;
+    }
+    return low;
+}
+
+int bs(int B,const vector<int> A,int low,int high)
+{
+    while(low<=high)
+    {
+        int mid = (low+high)/2;
+        if(A[mid] == B)
+            return mid;
+        else if(A[mid]>B)
+            high = mid-1;
+        else low = mid+1;
+    }
+    return -1;
+}
+
+int Solution::search(const vector<int> &A, int B) 
+{
+    int i,n=A.size(),x;
+    x = findPivot(0,n-1,A);
+    int ans = bs(B,A,0,x-1);
+    if(ans != -1)
+        return ans;
+    ans = bs(B,A,x,n-1);
+    return ans;
+}
