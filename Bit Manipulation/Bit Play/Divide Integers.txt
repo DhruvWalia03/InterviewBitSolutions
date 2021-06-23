@@ -1,0 +1,52 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Microsoft
+Amazon
+
+Divide two integers without using multiplication, division and mod operator.
+
+Return the floor of the result of the division.
+
+Example:
+5 / 2 = 2
+
+Also, consider if there can be overflow cases. For overflow case, return INT_MAX.
+Note: INT_MAX = 2^31 - 1
+
+Solution is below: 
+*/
+
+int Solution::divide(int dividend, int divisor) 
+{
+    int flag = 1;
+    if(divisor < 0) flag = -flag;
+    if(dividend < 0) flag = -flag;
+    long long A = abs((long long)dividend);
+    long long B = abs((long long)divisor);
+    long long c = 1,q = 0;
+    while (B < A)
+    {
+        B = B<<1;
+        c = c<<1;
+    }
+    while(B >= abs((long long)divisor))
+    {
+        while(B <= A){
+            A -= B;
+            q += c;
+        }
+        B = B>>1;
+        c = c>>1;
+    }
+    if(flag < 0)
+    {
+        if(-q<INT_MIN)
+            return INT_MAX;
+        return -q;
+    }
+    if(q>INT_MAX)
+        return INT_MAX;
+    return q;
+}
