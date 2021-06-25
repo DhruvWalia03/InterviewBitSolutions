@@ -1,0 +1,65 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+Flipkart
+
+Problem Description
+
+Given an one-dimensional unsorted array A containing N integers.
+
+You are also given an integer B, find if there exists a pair of elements in the array whose difference is B.
+
+Return 1 if any such pair exists else return 0.
+
+Input 1:
+ A = [5, 10, 3, 2, 50, 80]
+ B = 78
+Output 1:
+ 1
+Explanation 1:
+ Pair (80, 2) gives a difference of 78.
+
+Solution is below: 
+*/
+
+int Solution::solve(vector<int> &arr, int X) {
+    
+    sort(arr.begin(),arr.end());
+    int j,i = 0,n = arr.size();
+    for(j=i+1;j<n;j++)
+    {
+        if(arr[j]-arr[i] >= X)
+            break;
+    }
+    while(j<n)
+    {
+        if(i == j)
+            j++;
+        if(arr[j]-arr[i] == X)
+            return 1;
+        if(arr[j]-arr[i] > X)
+            i++;
+        if(arr[j]-arr[i] < X)
+            j++;
+    }
+    i=0; X = -X;
+    for(j=i+1;j<n;j++)
+    {
+        if(arr[j]-arr[i] >= X)
+            break;
+    }
+    while(j<n)
+    {
+        if(i == j)
+            j++;
+        if(arr[j]-arr[i] == X)
+            return 1;
+        if(arr[j]-arr[i] > X)
+            i++;
+        if(arr[j]-arr[i] < X)
+            j++;
+    }
+    return 0;
+}
