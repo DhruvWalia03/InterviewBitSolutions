@@ -1,0 +1,73 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+
+Find if Given number is power of 2 or not.
+More specifically, find if given number can be expressed as 2^k where k >= 1.
+
+Input:
+number length can be more than 64, which mean number can be greater than 2 ^ 64 (out of long long range)
+
+Output:
+return 1 if the number is a power of 2 else return 0
+
+Example:
+Input : 128
+Output : 1
+
+Solution is below: 
+*/
+
+bool greaterthan1(string A)
+{
+    if(A.length()>1 || A[0] != '1')
+        return true;
+    return false;
+}
+
+bool even(string A)
+{
+    int x = A[A.length()-1]-'0';
+    if(x%2==0)
+        return true;
+    return false;
+}
+
+string divideBy2(string A)
+{
+    reverse(A.begin(), A.end());
+    long long base = 10;
+    string temp = "";
+    for(int i = (int) A.size() - 1, rem = 0; i >= 0; --i) 
+    {
+        long long Cur = (A[i] - '0') + rem * base;
+        int val = Cur / 2;
+        rem = Cur % 2;
+        temp += (val + '0');
+    }
+    while(temp.size() && !(temp[0] - '0'))
+        temp.erase(temp.begin()); 
+    return temp;
+}
+
+int Solution::power(string A) 
+{
+    int n = A.length();
+    if(n == 1)
+    {
+        if(A[0] == '2' || A[0] == '4' || A[0] == '8')
+            return 1;
+        return 0;
+    }
+    while(even(A) && greaterthan1(A))
+    {
+        A = divideBy2(A);
+        if(!greaterthan1(A))
+            return 1;
+    }
+    if(greaterthan1(A))
+        return 0;
+    return 1;
+}

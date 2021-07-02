@@ -1,0 +1,39 @@
+/*
+This Solution is By Dhruv Walia
+
+You are given a string S, and you have to find all the amazing substrings of S.
+
+Amazing Substring is one that starts with a vowel (a, e, i, o, u, A, E, I, O, U).
+
+Input
+    ABEC
+
+Output
+    6
+
+Explanation
+	Amazing substrings of given string are :
+	1. A
+	2. AB
+	3. ABE
+	4. ABEC
+	5. E
+	6. EC
+	here number of substrings are 6 and 6 % 10003 = 6.
+
+Solution is below: 
+*/
+
+int Solution::solve(string A) {
+    
+    int i,n=A.length(),j = 0,ans=0,mod = 10003;
+    for(i=n-1;i>=0;i--)
+    {
+        j++;
+        if(A[i] == 'a' || A[i] == 'e' || A[i] == 'i' || A[i] == 'o' || A[i] == 'u')
+            ans = (ans%mod + j%mod)%mod;
+        else if(A[i] == 'A' || A[i] == 'E' || A[i] == 'I' || A[i] == 'O' || A[i] == 'U')
+            ans = (ans%mod + j%mod)%mod;
+    }
+    return ans;
+}

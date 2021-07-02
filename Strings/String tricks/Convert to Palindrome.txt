@@ -1,0 +1,41 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+
+Problem Description
+
+Given a string A consisting only of lowercase characters, we need to check whether it is possible to make this string a palindrome after removing exactly one character from this.
+
+If it is possible then return 1 else return 0.
+Input 1:
+ A = "abcba"
+
+Output 1:
+ 1
+
+Explanation 1:
+ We can remove character ‘c’ to make string palindrome
+
+Solution is below: 
+*/
+
+bool ispalin(string t)
+{
+    int i=0,j=t.length()-1;
+    while(i<j && t[i] == t[j])
+        i++,j--;
+    return i>=j;
+}
+
+int Solution::solve(string s) {
+    
+    int i=0,j=s.length()-1;
+    while(i<j && s[i] == s[j])
+        i++,j--;
+    return (i>=j || ispalin(s.substr(i+1,j-i)) || ispalin(s.substr(i,j-i)));
+    
+}
+
+

@@ -1,0 +1,82 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+LinkedIn
+Google
+
+Given an array of words and a length L, format the text such that each line has exactly L characters and is fully (left and right) justified.
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line.
+
+Pad extra spaces ‘ ‘ when necessary so that each line has exactly L characters.
+Extra spaces between words should be distributed as evenly as possible.
+If the number of spaces on a line do not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+For the last line of text, it should be left justified and no extra space is inserted between words.
+
+Your program should return a list of strings, where each string represents a single line.
+
+Example:
+
+words: ["This", "is", "an", "example", "of", "text", "justification."]
+
+L: 16.
+
+Return the formatted lines as:
+
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+
+Solution is below: 
+*/
+
+ector<string> Solution::fullJustify(vector<string> &A, int B) 
+{
+    int i,n=A.size(),j = 0,x = 0,y = 0,k;
+    vector<string> ans;
+    if(n == 0)
+        return ans;
+    for(i=0;i<n;i++)
+    {
+        if((x + A[i].length() + j) <= B)
+            x += A[i].length(),j++;
+        else
+        {
+            int s = 0,m = 0,cnt = 0;
+            string v = "",space = "";
+            if(j>1)
+            {
+                s = (B-x)/(j-1);
+                m = (B-x)%(j-1);
+                for(k=0;k<s;k++)
+                    space += " ";
+                for(k = i-j;k<i-1;k++)
+                {
+                    if(m>0)
+                        v += A[k]+space+" ",m--,cnt += A[k].length()+s+1;
+                    else
+                        v += A[k]+space,cnt += A[k].length()+s;
+                }
+            }
+            v += A[i-1];
+            cnt += A[i-1].length();
+            for(k = cnt;k < B; k++)
+                v += " ";
+            ans.push_back(v);
+            j = 1;
+            x = A[i].length();
+        }
+    }
+    string v = "";
+    int cnt = 0;
+    for(k = i-j;k<i-1;k++)
+        v += A[k]+" ",cnt += A[k].length()+1;
+    v += A[k];
+    cnt += A[k].length();
+    for(k = cnt;k < B;k++)
+        v += " ";
+    ans.push_back(v);
+    return ans;
+}

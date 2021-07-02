@@ -1,0 +1,54 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Adobe
+Nvidia
+Agilent systems
+Bloomberg
+Amazon
+Apple
+Microsoft
+Groupon
+
+Implement atoi to convert a string to an integer.
+
+Example :
+
+Input : "9 2704"
+Output : 9
+Note: There might be multiple corner cases here. Clarify all your doubts using “See Expected Output”.
+
+ Questions: Q1. Does string contain whitespace characters before the number?
+A. Yes Q2. Can the string have garbage characters after the number?
+A. Yes. Ignore it. Q3. If no numeric character is found before encountering garbage characters, what should I do?
+A. Return 0. Q4. What if the integer overflows?
+A. Return INT_MAX if the number is positive, INT_MIN otherwise.
+
+Solution is below: 
+*/
+
+int Solution::atoi(const string A) 
+{
+    long long i,n=A.length(),x = 0,flag = 1;
+    while(A[i] == ' ') 
+        i++;
+    if(i == n)
+        return 0;
+    if(A[i] == '-')
+        flag = 0,i++;
+    else if(A[i] == '+')
+        i++;
+    for(;i<n;i++)
+    {
+        if(A[i] >= '0' && A[i] <= '9')
+        {
+            x = (x*10) + (A[i]-'0');
+            if(x > INT_MAX)
+                return (flag)? INT_MAX:INT_MIN;
+        }
+        else 
+            return (flag)? x:(-x);
+    }
+    return (flag)? x:(-x);
+}

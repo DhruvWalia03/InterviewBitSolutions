@@ -1,0 +1,43 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+
+Given an string A. The only operation allowed is to insert characters in the beginning of the string.
+
+Find how many minimum characters are needed to be inserted to make the string a palindrome string.
+
+Input 1:
+    A = "ABC"
+Output 1:
+    2
+Explanation 1:
+    Insert 'B' at beginning, string becomes: "BABC".
+    Insert 'C' at beginning, string becomes: "CBABC".
+
+Solution is below: 
+*/
+
+    int pi[5000005];
+    void prefix(int n,string s) 
+    {
+        for (int i = 1; i < n; i++) 
+        {
+            int j = pi[i-1];
+            while (j > 0 && s[i] != s[j])
+                j = pi[j-1];
+            if (s[i] == s[j])
+                j++;
+            pi[i] = j;
+        }
+    }
+
+int Solution::solve(string A) {
+
+	string s = A;
+	reverse(A.begin(),A.end());
+	s += "$" + A;
+	prefix(s.length(),s);
+	return A.length()-pi[s.length()-1];
+}

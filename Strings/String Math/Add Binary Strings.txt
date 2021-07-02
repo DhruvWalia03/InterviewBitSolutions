@@ -1,0 +1,47 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Facebook
+Microsoft
+
+Given two binary strings, return their sum (also a binary string).
+
+Example:
+a = "100"
+b = "11"
+Return a + b = “111”.
+
+Solution is below: 
+*/
+
+string Solution::addBinary(string A, string B) 
+{
+    int n = A.length(),m = B.length(),i;
+    string ans = "";
+    reverse(A.begin(),A.end()); // 001
+    reverse(B.begin(),B.end()); // 11  
+    int x,y,c=0;
+    for(i = 0;i<min(n,m);i++)
+    {
+        x = A[i]-'0';
+        y = B[i]-'0';
+        int sum = x+y+c;
+        ans += (sum%2+'0');
+        c=sum/2;
+    }
+    for(;i<max(n,m);i++)
+    {
+        if(max(n,m) == n)
+            x = A[i]-'0',y = 0;
+        else
+            y = B[i]-'0',x = 0;
+        int sum = x+y+c;
+        ans += (sum%2+'0');
+        c=sum/2;
+    }
+    while(c > 0)
+        ans += (c%2+'0'),c /= 2;
+    reverse(ans.begin(),ans.end());
+    return ans;
+}

@@ -1,0 +1,51 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Qualcomm
+Amazon
+Microsoft
+Cisco
+Facebook
+
+Given a string A.
+
+Return the string A after reversing the string word by word.
+
+NOTE:
+
+A sequence of non-space characters constitutes a word.
+
+Your reversed string should not contain leading or trailing spaces, even if it is present in the input string.
+
+If there are multiple spaces between words, reduce them to a single space in the reversed string.
+
+Input 1:
+    A = "the sky is blue"
+Output 1:
+    "blue is sky the"
+
+Solution is below: 
+*/
+
+string Solution::solve(string A) {
+    A += " ";
+    vector<string> s;
+    string t = "";
+    for(auto i:A)
+    {
+        if(i == ' ')
+        {
+            if(t != "")
+                s.push_back(t);
+            t = "";
+        }
+        else t += i;
+    }
+    A = "";
+    for(int i=s.size()-1;i>=0;i--)
+    {
+        A += s[i] + " ";
+    }
+    return A.substr(0,A.length()-1);
+}

@@ -1,0 +1,38 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+Facebook
+Microsoft
+Twitter
+
+Given an integer A, convert it to a roman numeral, and return a string corresponding to its roman numeral version
+
+For Example
+
+Input 1:
+    A = 5
+Output 1:
+    "V"
+
+Solution is below: 
+*/
+
+string Solution::intToRoman(int A)
+{
+    int a[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    string s[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    int i = 0;
+    string ans = "";
+    while(A != 0)
+    {
+        while(A >= a[i])
+        {
+            ans += s[i];
+            A -= a[i];
+        }
+        i++;
+    }
+    return ans;
+}

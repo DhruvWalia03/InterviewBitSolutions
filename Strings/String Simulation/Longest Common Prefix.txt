@@ -1,0 +1,45 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Google
+
+Given the array of strings A,
+you need to find the longest string S which is the prefix of ALL the strings in the array.
+
+Longest common prefix for a pair of strings S1 and S2 is the longest string S which is the prefix of both S1
+and S2.
+
+For Example, longest common prefix of "abcdefgh" and "abcefgh" is "abc".
+
+Input 1:
+    A = ["abcdefgh", "aefghijk", "abcefgh"]
+Output 1:
+    "a"
+Explanation 1:
+    Longest common prefix of all the strings is "a".
+
+Solution is below: 
+*/
+
+string Solution::longestCommonPrefix(vector<string> &A) {
+
+    int i,n=A.size(),j,m = INT_MAX,x;
+    string ans = "";
+    for(auto s:A)
+        x = s.length(),m = min(m,x);
+    for(j=0;j<m;j++)
+    {
+        char c=A[0][j];
+        for(i=1;i<n;i++)
+        {
+            if(A[i][j]!=c)
+                break;
+        }
+        if(i==n)
+            ans+=c;
+        else break;
+    }
+    return ans;
+
+}

@@ -1,0 +1,48 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+BrowserStack
+
+Problem Description
+
+Given a string A and integer B, remove all consecutive same characters that have length exactly B.
+
+Problem Constraints
+1 <= |A| <= 100000
+1 <= B <= |A|
+
+Input 1:
+A = "aabcd"
+B = 2
+
+Output 1:
+ "bcd"
+Explanation 1:
+ "aa" had length 2.
+
+Solution is below: 
+*/
+
+string Solution::solve(string A, int B) {
+
+    int i,j,k = 1,n = A.length();
+    string ans = "",temp = "";
+    temp += A[0];
+    for(i=1;i<n;i++)
+    {
+        if(A[i] == A[i-1])
+            k++;
+        else
+        {
+            if(k != B)
+                ans += temp;
+            k = 1;
+            temp = "";
+        }
+        temp += A[i];
+    }
+    if(k != B)
+        ans += temp;
+    return ans;
+}
