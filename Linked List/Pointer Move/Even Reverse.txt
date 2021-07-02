@@ -1,0 +1,76 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+Problem Description
+
+Given a linked list A , reverse the order of all nodes at even positions.
+
+Input 1:
+A = 1 -> 2 -> 3 -> 4
+
+Output 1:
+ 1 -> 4 -> 3 -> 2
+
+Explanation 1:
+Nodes are positions 2 and 4 have been swapped.
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ ListNode* reverse(ListNode* A) {
+
+    ListNode *curr = A;
+    if(curr == NULL || curr->next == NULL)
+        return A;
+    ListNode *prev = NULL, *nex = A->next;
+    while(curr != NULL)
+    {
+        curr -> next = prev;
+        prev = curr;
+        curr = nex;
+        if(nex != NULL)
+            nex = nex->next;
+    }
+    return prev;
+}
+
+ListNode* Solution::solve(ListNode* h)
+{
+    if(h == NULL || h->next == NULL)
+        return h;
+    ListNode *curr = h, *rh;
+    vector<int> v;
+    int x = 0;
+    while(curr != NULL)
+    {
+        if(x%2 == 1)
+            v.push_back(curr->val);
+        x++;
+        curr = curr->next;
+    }
+    rh = reverse(h);
+    if(x%2 == 0)
+        curr = rh;
+    else curr = rh->next;
+    x = 0;
+    while(x < v.size())
+    {
+        curr->val = v[x++];
+        if(curr->next != NULL)
+            curr = curr->next->next;
+    }
+    return reverse(rh);
+    // 1 2 3 4 5 6
+    // 2 5 4 3 6 1
+    // 1 6 3 4 5 2
+}

@@ -1,0 +1,36 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+
+Given a list, rotate the list to the right by k places, where k is non-negative.
+For example:
+Given 1->2->3->4->5->NULL and k = 2,
+return 4->5->1->2->3->NULL.
+
+Solution is below: 
+*/
+
+ListNode* Solution::rotateRight(ListNode* A, int k) 
+{
+    int n = 0,x = 0;
+    ListNode *curr = A, *head;
+    while(curr)
+        curr = curr->next,n++;
+    k = k%n;
+    if(k == 0)
+        return A;
+    curr = A;
+    while(x < n-k-1)
+    {
+        x++;
+        curr = curr->next;
+    }
+    head = curr->next;
+    curr->next = NULL;
+    while(curr->next != NULL)
+        curr = curr->next;
+    curr->next = A;
+    return head;
+}

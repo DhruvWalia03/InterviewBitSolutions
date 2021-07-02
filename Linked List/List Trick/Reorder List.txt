@@ -1,0 +1,55 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+MICROSOFT
+
+Given a singly linked list
+
+    L: L0 → L1 → … → Ln-1 → Ln,
+reorder it to:
+
+    L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → …
+You must do this in-place without altering the nodes’ values.
+
+For example,
+
+Given {1,2,3,4}, reorder it to {1,4,2,3}.
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::reorderList(ListNode* A) {
+
+    if(A == NULL || A->next == NULL)
+        return A;
+    vector<ListNode*> v;
+    ListNode *curr = A;
+    while(curr != NULL)
+    {
+        v.push_back(curr);
+        curr = curr->next;
+    }
+    int i,j=0,k=v.size()-1;
+    for(i=0;i<v.size();i++)
+    {
+        if(i%2 == 0)
+            v[j++]->next = v[k];
+        else
+            v[k--]->next = v[j];
+    }
+    if(i%2 == 0)
+        v[j++]->next = NULL;
+    else
+        v[k--]->next = NULL;
+    return A;
+}

@@ -1,0 +1,95 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+QUALCOMM
+MICROSOFT
+FACEBOOK
+
+You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+    342 + 465 = 807
+Make sure there are no trailing zeros in the output list
+So, 7 -> 0 -> 8 -> 0 is not a valid response even though the value is still 807.
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct Listlistnode {
+ *     int val;
+ *     struct Listlistnode *next;
+ * };
+ * 
+ * typedef struct Listlistnode listnode;
+ * 
+ * listnode* listnode_new(int val) {
+ *     listnode* node = (listnode *) malloc(sizeof(listnode));
+ *     node->val = val;
+ *     node->next = NULL;
+ *     return node;
+ * }
+ */
+/**
+ * @input A : Head pointer of linked list 
+ * @input B : Head pointer of linked list 
+ * 
+ * @Output head pointer of list.
+ */
+    
+listnode* addTwoNumbers(listnode* A, listnode* B) {
+
+        listnode *rf = A, *rs = B;
+        int p = rf->val + rs->val,c;
+        listnode *head = listnode_new(p%10);
+        head->next = NULL;
+        listnode *curr = head;
+        c = p/10;
+        rf = rf->next;
+        rs = rs->next;
+        while(rf != NULL && rs != NULL)
+        {
+            p = rf->val + rs->val+c;
+            c = p/10;
+            listnode *nextElement = listnode_new(p%10);
+            nextElement->next = NULL;
+            curr->next = nextElement;
+            curr = nextElement;
+            rf = rf->next;
+            rs = rs->next;
+        }
+        while(rs != NULL)
+        {
+            p = rs->val+c;
+            c = p/10;
+            listnode *nextElement = listnode_new(p%10);
+            nextElement->next = NULL;
+            curr->next = nextElement;
+            curr = nextElement;
+            rs = rs->next;
+        }
+        while(rf != NULL)
+        {
+            p = rf->val+c;
+            c = p/10;
+            listnode *nextElement = listnode_new(p%10);
+            nextElement->next = NULL;
+            curr->next = nextElement;
+            curr = nextElement;
+            rf = rf->next;
+        }
+        while(c!=0)
+        {
+            p = c;
+            c = p/10;
+            listnode *nextElement = listnode_new(p%10);
+            nextElement->next = NULL;
+            curr->next = nextElement;
+            curr = nextElement;
+        }
+        return head;
+}

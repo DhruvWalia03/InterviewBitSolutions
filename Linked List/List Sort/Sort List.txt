@@ -1,0 +1,85 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Google
+
+Sort a linked list in O(n log n) time using constant space complexity.
+
+Example :
+
+Input : 1 -> 5 -> 4 -> 3
+
+Returned list : 1 -> 3 -> 4 -> 5
+
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ * 
+ * typedef struct ListNode listnode;
+ * 
+ * listnode* listnode_new(int val) {
+ *     listnode* node = (listnode *) malloc(sizeof(listnode));
+ *     node->val = val;
+ *     node->next = NULL;
+ *     return node;
+ * }
+ */
+/**
+ * @input A : Head pointer of linked list 
+ * 
+ * @Output head pointer of list.
+ */
+
+listnode* merge(listnode *i, listnode *j)
+{
+    if(i == NULL)
+        return j;
+    if(j == NULL)
+        return i;
+    listnode *head = listnode_new(0);
+    listnode *temp = head;
+    while(i != NULL && j != NULL)
+    {
+        if(i->val < j->val)
+        {
+            temp -> next = i;
+            i = i->next;
+        }
+        else 
+        {
+            temp -> next = j;
+            j = j->next;
+        }
+        temp = temp -> next;
+    }
+    if(i != NULL)
+        temp -> next = i;
+    if(j != NULL)
+        temp -> next = j;
+    return head->next;
+}
+
+listnode* sortList(listnode* A) {
+
+    if(A == NULL || A->next == NULL)
+        return A;
+    listnode *i = A,*j = A,*k = A->next;
+    
+    while(k != NULL && k->next != NULL)
+    {
+        j = j->next;
+        k = (k->next)->next;
+    }
+
+    k = j->next;
+    j->next = NULL;
+    return merge(sortList(i),sortList(k));
+}

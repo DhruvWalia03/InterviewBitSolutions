@@ -1,0 +1,73 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked in:  
+Amazon
+Microsoft
+NetApp
+Apache Design
+
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+For example, the following two linked lists:
+
+
+A:          a1 → a2
+                   ↘
+                     c1 → c2 → c3
+                   ↗
+B:     b1 → b2 → b3
+
+begin to intersect at node c1.
+
+
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ * 
+ * typedef struct ListNode listnode;
+ * 
+ * listnode* listnode_new(int val) {
+ *     listnode* node = (listnode *) malloc(sizeof(listnode));
+ *     node->val = val;
+ *     node->next = NULL;
+ *     return node;
+ * }
+ */
+/**
+ * @input A : Head pointer of linked list 
+ * @input B : Head pointer of linked list 
+ * 
+ * @Output head pointer of list.
+ */
+listnode* getIntersectionNode(listnode* A, listnode* B) {
+
+    listnode *ans = NULL;
+    while(A != NULL)
+    {
+        A->val += 1e9;
+        A = A->next;
+    }
+    while(B != NULL)
+    {
+        if( B->val >= 1e9 )
+        {
+            ans = B;
+            break;
+        }
+        B = B->next;
+    }
+    while(B != NULL)
+    {
+        B->val -= 1e9;
+        B = B->next;
+    }
+    return ans;
+}

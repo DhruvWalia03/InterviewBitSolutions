@@ -1,0 +1,67 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+MICROSOFT
+NETAPP
+
+Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+Try solving it using constant additional space.
+
+Example :
+Input : 
+                  ______
+                 |     |
+                 \/    |
+        1 -> 2 -> 3 -> 4
+
+Return the node corresponding to node 3. 
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ * 
+ * typedef struct ListNode listnode;
+ * 
+ * listnode* listnode_new(int val) {
+ *     listnode* node = (listnode *) malloc(sizeof(listnode));
+ *     node->val = val;
+ *     node->next = NULL;
+ *     return node;
+ * }
+ */
+/**
+ * @input A : Head pointer of linked list 
+ * 
+ * @Output head pointer of list.
+ */
+listnode* detectCycle(listnode* A) {
+    listnode *a = A,*b = A;
+    a = a->next;
+    if(b->next == NULL)
+        return NULL;
+    b = b->next->next;
+    while(a!=NULL && b!=NULL && (b->next)!=NULL && a->val != b->val)
+    {
+        a = a->next;
+        b = b->next->next;
+    }
+    if(a == b)
+    {
+        a = A;
+        while(a != NULL && b != NULL && a->val != b->val)
+        {
+            a = a->next;
+            b = b->next;
+        }
+        return a;
+    }
+    return NULL;
+}

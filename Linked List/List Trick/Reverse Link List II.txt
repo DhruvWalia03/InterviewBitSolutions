@@ -1,0 +1,81 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+FACEBOOK
+MICROSOFT
+AMAZON
+
+Reverse a linked list from position m to n. Do it in-place and in one-pass.
+For example:
+Given 1->2->3->4->5->NULL, m = 2 and n = 4,
+
+return 1->4->3->2->5->NULL.
+
+Note:
+Given m, n satisfy the following condition:
+1 ≤ m ≤ n ≤ length of list.
+Note 2:
+Usually the version often seen in the interviews is reversing the whole linked list which is obviously an easier version of this question.
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* reverse(ListNode* A,int k) {
+
+    ListNode *curr = A;
+    if(curr == NULL || curr->next == NULL)
+        return A;
+    ListNode *prev = NULL, *nex = A->next;
+    int x = 0;
+    while(curr != NULL && x<k)
+    {
+        curr -> next = prev;
+        prev = curr;
+        curr = nex;
+        x++;
+        if(nex != NULL)
+            nex = nex->next;
+    }
+    return prev;
+}
+
+ListNode* Solution::reverseBetween(ListNode* A, int m, int n) 
+{
+    if(A == NULL || A->next == NULL || n == m)
+        return A;
+    ListNode *curr = A, *prev = NULL, *head = A,*temp = A;
+    int x = 0;
+    while(temp != NULL && x<n)
+    {
+        x++;
+        temp = temp->next;
+    }
+    x = 0;
+    while(curr != NULL)
+    {
+        if(x == m-1)
+        {
+            ListNode *rev = reverse(curr,n-m+1);
+            curr->next = temp;
+            if(prev == NULL)
+                head = rev;
+            else
+                prev->next = rev;
+            break;
+        }
+        x++;
+        prev = curr;
+        curr = curr->next;
+    }
+    // 1 2 3 4 5 N
+    return head;
+}

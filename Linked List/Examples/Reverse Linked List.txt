@@ -1,0 +1,38 @@
+/*
+This Solution is By Dhruv Walia
+
+Reverse a linked list. Do it in-place and in one-pass.
+
+For example:
+Given 1->2->3->4->5->NULL,
+
+return 5->4->3->2->1->NULL.
+
+Solution is below: 
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::reverseList(ListNode* A) {
+
+    ListNode *curr = A;
+    if(curr == NULL || curr->next == NULL)
+        return A;
+    ListNode *prev = NULL, *nex = A->next;
+    while(curr != NULL)
+    {
+        curr -> next = prev;
+        prev = curr;
+        curr = nex;
+        if(nex != NULL)
+            nex = nex->next;
+    }
+    return prev;
+
+}
