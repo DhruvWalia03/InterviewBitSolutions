@@ -1,0 +1,66 @@
+/*
+This Solution is By Dhruv Walia
+
+Given a string A representing an absolute path for a file (Unix-style).
+Return the string A after simplifying the absolute path.
+
+Note:
+Absolute path always begin with ’/’ ( root directory ).
+Path will not have whitespace characters.
+Whenever we encounter any file’s name, we simply push it into the stack. 
+When we come across ” . ” we do nothing. 
+When we find “..” in our path, we simply pop the topmost element as we have to jump back to parent’s directory. 
+When we see multiple “////” we just ignore them as they are equivalent to one single “/”. 
+
+For Example
+Input 2:
+    A = "/a/./b/../../c/"
+Output 2:
+    "/c"
+
+Solution is below: 
+*/
+
+string Solution::simplifyPath(string A) {
+
+    stack <string> s,rs;
+    string t = "",ans = "";
+    int i,n = A.length();
+    for(i = 0; i < n; i++)
+    {
+        if(A[i] == '/')
+        {
+            if(t != "")
+                s.push(t);
+            t = "";
+        }
+        else if(i<n-1 && A[i] == '.' && A[i+1] == '.')
+        {
+            if(t != "")
+                s.push(t),t = "";
+            if(!s.empty())
+                s.pop();
+            i++;
+        }
+        else if(A[i] == '.')
+        {
+            if(t != "")
+                s.push(t);
+            t = "";
+        }
+        else
+            t += A[i];
+    }
+    if(t != "")
+        s.push(t);
+    while(!s.empty())
+        rs.push(s.top()),s.pop();
+    while(!rs.empty())
+    {
+        ans += "/" + rs.top();
+        rs.pop();
+    }
+    if(ans == "")
+        ans = "/";
+    return ans;
+}

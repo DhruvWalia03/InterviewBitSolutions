@@ -1,0 +1,50 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+Return 0 / 1 ( 0 for false, 1 for true ) for this problem
+
+PROBLEM APPROACH :
+Complete solution in hints.
+
+Solution is below: 
+*/
+
+int Solution::isValid(string A) {
+    stack<int> s,b,c;
+    int i,n = A.length();
+    for(i=0;i<n;i++)
+    {
+        if(A[i] == '(')
+            b.push(i);
+        else if(A[i] == ')')
+        {
+            if(!b.empty())
+                b.pop();
+            else break;
+        }
+        if(A[i] == '[')
+            s.push(i);
+        else if(A[i] == ']')
+        {
+            if(!s.empty())
+                s.pop();
+            else break;
+        }
+        if(A[i] == '{')
+            c.push(i);
+        else if(A[i] == '}')
+        {
+            if(!c.empty())
+                c.pop();
+            else break;
+        }
+    }
+    return (i == n && c.empty() && s.empty() && b.empty());
+}

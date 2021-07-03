@@ -1,0 +1,29 @@
+/*
+This Solution is By Dhruv Walia
+
+Given a string S, reverse the string using stack.
+
+Example :
+Input : "abc"
+Return "cba"
+
+PROBLEM APPROACH :
+Complete solution in hints.
+
+Solution is below: 
+*/
+
+string Solution::reverseString(string A) {
+    
+    stack <char> s;
+    int i,n = A.length();
+    string ans = "";
+    for(i=0;i<n;i++)
+        s.push(A[i]);
+    while(!s.empty())
+    {
+        ans += s.top();
+        s.pop();
+    }
+    return ans;
+}

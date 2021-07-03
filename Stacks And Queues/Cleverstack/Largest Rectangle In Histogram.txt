@@ -1,0 +1,56 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+GOOGLE
+FACEBOOK
+
+AMAZON
+Given an array of integers A of size N. A represents a histogram i.e A[i] denotes height of the ith histogram’s bar. Width of each bar is 1.
+
+Example 1
+Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].
+
+Find the area of largest rectangle in the histogram.
+
+Input 1:
+    A = [2, 1, 5, 6, 2, 3]
+Output 1:
+    10
+Explanation 1:
+    The largest rectangle is shown in the shaded area, which has area = 10 unit.
+
+Solution is below: 
+*/
+
+int Solution::largestRectangleArea(vector<int> &A) {
+
+    stack<int> s;
+    int i = 0,n = A.size(), area = 0,maxarea = 0;
+    while(i < n)
+    {
+        if(s.empty() || A[s.top()] <= A[i])
+            s.push(i++);
+        else
+        {
+            int top_v = s.top();
+            s.pop();
+            if(s.empty())
+                area = i * A[top_v]; 
+            else area = (i-s.top()-1) * A[top_v];
+            maxarea = max(maxarea, area);
+        }
+    }
+    while(!s.empty())
+    {
+        int top_v = s.top();
+        s.pop();
+        if(s.empty())
+            area = i * A[top_v]; 
+        else area = (i-s.top()-1) * A[top_v];
+        maxarea = max(maxarea, area);
+    }
+    // 2 1 5 6 2  3
+    // N 2 N N 10 
+    return maxarea;
+}
