@@ -1,0 +1,57 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+GOOGLE
+AMAZON
+INMOBI
+
+Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
+
+Sample Input :
+ (1, 1)
+ (2, 2)
+
+Sample Output :
+ 2
+You will be given 2 arrays X and Y. Each point is represented by (X[i], Y[i])
+
+Solution is below: 
+*/
+
+int Solution::maxPoints(vector<int> &A, vector<int> &B) {
+    
+    if(A.size() == 0 || B.size() == 0)
+        return 0;
+    unordered_map<double, int> mp;
+    int i,n = A.size(),ans = 1,j;
+    for(i = 0; i < n; i++)
+    {
+        int duplicate = 1,vertical = 0;
+        for(j = i+1; j < n; j++)
+        {
+            if(A[i] == A[j])
+            {
+                if(B[i] == B[j])
+                    duplicate++;
+                else
+                    vertical++;
+            }
+            else
+            {
+                double slope = 0.0,x = A[j]-A[i],y = B[j]-B[i];
+                if(B[j] != B[i])
+                    slope = (1.0 * (y/x));
+                mp[slope]++;
+            }
+        }
+        for(auto it = mp.begin();it != mp.end();it++)
+        {
+            int t = it->second;
+            ans = max(ans,t+duplicate);
+        }
+        ans = max(ans,vertical + duplicate);
+        mp.clear();
+    }
+    return ans;
+}
