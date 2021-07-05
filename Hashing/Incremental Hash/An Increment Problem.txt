@@ -1,0 +1,55 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+BLOOMBERG L.P
+EVIE.AI
+GROUPON
+SHOPEE
+
+Problem Description
+
+Given a stream of numbers A. On arrival of each number, you need to increase its first occurence by 1 and include this in the stream.
+Return the final stream of numbers.
+
+Input 1:
+ A = [1, 1]
+Input 2:
+ A = [1, 2]
+
+
+Output 1:
+ [2, 1]
+Output 2:
+ [1, 2]
+
+
+Explanation 1:
+ On arrival of the second element, the other element is increased by 1.
+Explanation 2:
+ No increases are to be done.
+
+Solution is below: 
+*/
+
+vector<int> Solution::solve(vector<int> &A) {
+
+    int i,j,n = A.size();
+    map<int,int> mp;
+    vector<int> ans;
+    ans.push_back(A[0]);
+    mp[A[0]] = i+1;
+    for(i = 1;i < n;i++)
+    {
+        if(mp[A[i]] == 0)
+            mp[A[i]] = i+1;
+        else
+        {
+            ans[mp[A[i]]-1]++;
+            mp[A[i]+1] = mp[A[i]];
+            mp[A[i]] = i+1;
+        }
+        ans.push_back(A[i]);
+    }
+    return ans;
+}

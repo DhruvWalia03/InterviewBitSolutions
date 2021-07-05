@@ -1,0 +1,48 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+DUNZO
+
+Problem Description
+
+Given an array of integers A and an integer B.
+Find the total number of subarrays having bitwise XOR of all elements equals to B.
+
+Input 1:
+ A = [4, 2, 2, 6, 4]
+ B = 6
+Input 2:
+ A = [5, 6, 7, 8, 9]
+ B = 5
+
+Output 1:
+ 4
+Output 2:
+ 2
+
+Explanation 1:
+ The subarrays having XOR of their elements as 6 are:
+  [4, 2], [4, 2, 2, 6, 4], [2, 2, 6], [6]
+Explanation 2:
+ The subarrays having XOR of their elements as 2 are [5] and [5, 6, 7, 8, 9]
+
+
+Solution is below: 
+*/
+
+int Solution::solve(vector<int> &A, int B) {
+
+    if(A.size() < 2)
+        return 0;
+    unordered_map<int,int> mp;
+    int y = 0,ans = 0;
+    mp[0] = 1;
+    for(int i = 0; i < A.size(); i++)
+    {
+        y = y ^ A[i];
+        mp[y]++;
+        ans += mp[y^B];
+    }
+    return ans;
+}

@@ -1,0 +1,48 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+MICROSOFT
+Find the largest continuous sequence in a array which sums to zero.
+
+Example:
+
+
+Input:  {1 ,2 ,-2 ,4 ,-4}
+Output: {2 ,-2 ,4 ,-4}
+
+NOTE : If there are multiple correct answers, return the sequence which occurs first in the array.
+
+Solution is below: 
+*/
+
+vector<int> Solution::lszero(vector<int> &A) {
+
+    int i,n = A.size(),start = -1,end = -1,x,y = 0,pre = 0;
+    map<int,int> mp;
+    mp[0] = 1;
+    for(i=0;i<n;i++)
+    {
+        pre += A[i];
+        if(mp[pre] == 0)
+            mp[pre] = (i+1);
+        else if(pre == 0)
+        {
+            x = i+1;
+            if(x>y)
+                y = x,start = 0,end = i;
+        }
+        else
+        {
+            x = i+1-mp[pre];
+            if(x>y)
+                y = x,start = mp[pre],end = i;
+        }
+    }
+    vector<int> v;
+    if(start == -1 )
+        return v;
+    for(i=start;i<=end;i++)
+        v.push_back(A[i]);
+    return v;
+}

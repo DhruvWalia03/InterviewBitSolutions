@@ -1,0 +1,59 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+GOOGLE
+
+Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+Note:
+Elements in a quadruplet (a,b,c,d) must be in non-descending order. (ie, a ≤ b ≤ c ≤ d)
+The solution set must not contain duplicate quadruplets.
+
+Given array S = {1 0 -1 0 -2 2}, and target = 0
+A solution set is:
+    (-2, -1, 1, 2)
+    (-2,  0, 0, 2)
+    (-1,  0, 0, 1)
+
+Also make sure that the solution set is lexicographically sorted.
+Solution[i] < Solution[j] iff Solution[i][0] < Solution[j][0] OR (Solution[i][0] == Solution[j][0] AND ... Solution[i][k] < Solution[j][k])
+
+Solution is below: 
+*/
+
+vector<vector<int> > Solution::fourSum(vector<int> &A, int B) {
+
+    sort(A.begin(),A.end());
+    int i,j,k,l,n = A.size();
+    vector<vector<int> > ans;
+    vector<int> v;
+    map<vector<int>, int> mp;
+    for(i=0;i<n;i++)
+    {
+        for(j=i+1;j<n;j++)
+        {
+            l = j+1; k = n-1;
+            int x = B-A[i]-A[j];
+            while(l<k)
+            {
+                if(A[l] + A[k] == x)
+                {
+                    v.push_back(A[i]);
+                    v.push_back(A[j]);
+                    v.push_back(A[l]);
+                    v.push_back(A[k]);
+                    if(mp[v] == 0)
+                        mp[v] = 1,ans.push_back(v);
+                    v.clear();
+                    l++;k--;
+                }
+                else if(A[l] + A[k] < x)
+                    l++;
+                else k--;
+            }
+        }
+    }
+    sort(ans.begin(),ans.end());
+    return ans;
+}

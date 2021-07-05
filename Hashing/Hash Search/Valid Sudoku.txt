@@ -1,0 +1,92 @@
+/*
+This Solution is By Dhruv Walia
+
+Determine if a Sudoku is valid, according to: http://sudoku.com.au/TheRules.aspx
+The Sudoku board could be partially filled, where empty cells are filled with the character ‘.’.
+
+The input corresponding to the above configuration :
+["53..7....", "6..195...", ".98....6.", "8...6...3", "4..8.3..1", "7...2...6", ".6....28.", "...419..5", "....8..79"]
+A partially filled sudoku which is valid.
+
+Note:
+A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
+
+Return 0 / 1 ( 0 for false, 1 for true ) for this problem
+
+Solution is below: 
+*/
+
+bool isRowValid(string s,int start,int end)
+{
+    int a[10] = {0};
+    for(int i=start;i<end;i++)
+    {
+        if(s[i] == '.')
+            continue;
+        if(s[i] == '0')
+            return false;
+        if(a[s[i]-'0'] == 1)
+            return false;
+        a[s[i]-'0']++;
+    }
+    return true;
+}
+
+bool isColValid(const vector<string> &s,int start,int end,int idx)
+{
+    int a[10] = {0};
+    for(int i=start;i<end;i++)
+    {
+        if(s[i][idx] == '.')
+            continue;
+        if(s[i][idx] == '0')
+            return false;
+        if(a[s[i][idx]-'0'] == 1)
+            return false;
+        a[s[i][idx]-'0']++;
+    }
+    return true;
+}
+
+bool isSquareValid(const vector<string> &s,int starti,int startj)
+{
+    int a[10] = {0};
+    for(int i=starti;i<starti+3;i++)
+    {
+        for(int j=startj;j<startj+3;j++)
+        {
+            if(s[i][j] == '.')
+                continue;
+            if(s[i][j] == '0')
+                return false;
+            if(a[s[i][j]-'0'] == 1)
+                return false;
+            a[s[i][j]-'0']++;
+        }
+    }
+    return true;
+}
+
+int Solution::isValidSudoku(const vector<string> &A) {
+
+    int i,j,k, n = A.size();
+    for(i = 0;i < n; i++)
+    {
+        if(!isRowValid(A[i],0,9))
+            return 0;
+    }
+    for(i = 0;i < n; i++)
+    {
+        if(!isColValid(A,0,n,i))
+            return 0;
+    }
+    for(i=0;i<9;i+=3)
+    {
+        for(j=0;j<9;j+=3)
+        {
+            if(!isSquareValid(A,i,j))
+                return 0;
+        }
+    }
+    return 1;
+}
