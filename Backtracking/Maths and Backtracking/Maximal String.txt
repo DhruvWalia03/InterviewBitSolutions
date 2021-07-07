@@ -1,0 +1,71 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+APPLE
+
+Problem Description
+Given a string A and integer B, what is maximal lexicographical stringthat can be made from A if you do atmost B swaps.
+
+Input 1:
+ A = "254"
+ B = 1
+Input 2:
+ A = "254'
+ B = 2
+
+Output 1:
+ 524
+Output 2:
+ 542
+
+Explanation 1:
+ Swap 2 and 5.
+Explanation 2:
+ Swap 2 and 5 then swap 4 and 2.
+
+Solution is below: 
+*/
+
+string ans;
+void solv(string s,int k,int idx)
+{
+    if(idx==s.length())
+    {
+        ans = max(s,ans);
+        return;
+    }
+    if(k==0)
+    {
+        solv(s,k,idx+1);
+        return;
+    }
+    int x = idx;
+    for(int i = idx;i<s.length();i++)
+    {
+        if(s[i]>s[x])
+            x=i;
+    }
+    if(x == idx)
+    {
+        solv(s,k,idx+1);
+        return;
+    }
+    for(int i = idx;i<s.length();i++)
+    {
+        if(s[i]==s[x])
+        {
+            swap(s[idx],s[i]);
+            solv(s,k-1,idx+1);
+            swap(s[idx],s[i]);
+        }
+    }
+    return;
+}
+
+string Solution::solve(string A, int B) 
+{
+    ans = A;
+    solv(A,B,0);
+    return ans;
+}

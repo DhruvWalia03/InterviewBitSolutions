@@ -1,0 +1,37 @@
+/*
+This Solution is By Dhruv Walia
+
+Implement pow(A, B) % C.
+In other words, given A, B and C, find (AB)%C.
+
+Input : A = 2, B = 3, C = 3
+Return : 2 
+
+2^3 % 3 = 8 % 3 = 2
+
+Solution is below: 
+*/
+
+long long expo(long long A,long long B,long long C)
+{
+    long long ans = 1;
+    while(B>0)
+    {
+        if(B%2 == 1)
+            ans = (ans%C * A%C)%C;
+        A = (A%C * A%C)%C;
+        B /= 2;
+    }
+    if(ans < 0)
+    {
+        int x = ans/C;
+        if(ans%C != 0)
+            x++;
+        ans += x*C;
+    }
+    return ans;
+}
+
+int Solution::Mod(int A, int B, int C) {
+    return expo(A,B,C)%C;
+}

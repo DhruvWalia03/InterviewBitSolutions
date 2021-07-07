@@ -1,0 +1,79 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+MICROSOFT
+QUALCOMM
+
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+Empty cells are indicated by the character '.' 
+You may assume that there will be only one unique solution.
+A sudoku puzzle, and its solution numbers marked in red.
+
+Example :
+For the above given diagrams, the corresponding input to your program will be
+ [[53..7....], [6..195...], [.98....6.], [8...6...3], [4..8.3..1], [7...2...6], [.6....28.], [...419..5], [....8..79]]
+
+and we would expect your program to modify the above array of array of characters to
+ [[534678912], [672195348], [198342567], [859761423], [426853791], [713924856], [961537284], [287419635], [345286179]]
+
+Solution is below: 
+*/
+
+const int N = 9;
+bool check(int grid[N][N],int row,int col,int num)
+{
+    for (int x = 0; x < N; x++)
+        if (grid[row][x] == num)
+            return false;
+    
+    for (int x = 0; x < N; x++)
+        if (grid[x][col] == num)
+            return false;
+    
+    int startRow = row - row % 3,startCol = col - col % 3;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+            if(grid[i+startRow][j+startCol] == num)
+                return false;
+    }
+    return true;
+}
+    
+bool solve(int g[N][N],int x,int y)
+{
+    if(x == N-1 && y == N)
+        return true;
+    if(y == N)
+        x++,y=0;
+    if(g[x][y] > 0)
+        return solve(g,x,y+1);
+    for(int i = 1;i<10;i++)
+    {
+        if(check(g,x,y,i))
+        {
+            g[x][y]=i;
+            if(solve(g,x,y+1))
+                return true;
+        }
+        g[x][y]=0;
+    }
+    return false;
+}
+    
+void Solution::solveSudoku(vector<vector<char> > &A) {
+    
+    int grid[N][N];
+    for (int i = 0; i < A.size(); i++) 
+    {
+        for (int j = 0; j < A[0].size(); j++)
+            grid[i][j] = A[i][j]-'0';
+    }
+    solve(grid,0,0);
+    for (int i = 0; i < A.size(); i++)
+    {
+        for (int j = 0; j < A[0].size(); j++)
+            A[i][j] = grid[i][j] + '0';
+    }
+}
