@@ -1,0 +1,61 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+LIV.AI
+Problem Description
+
+Given two equally sized 1-D arrays A, B containing N integers each.
+A sum combination is made by adding one element from array A and another element of array B.
+Return the maximum C valid sum combinations from all the possible sum combinations.
+
+NOTE:
+ The returned array must be sorted in non-increasing order.
+
+Input 1:
+ A = [3, 2]
+ B = [1, 4]
+ C = 2
+
+Output 1:
+ [7, 6]
+
+Explanation 1:
+ 7     (A : 3) + (B : 4)
+ 6     (A : 2) + (B : 4)
+
+Solution is below: 
+*/
+
+vector<int> Solution::solve(vector<int> &A, vector<int> &B, int C) {
+
+    priority_queue<pair<int, pair<int, int>>>  pq;
+    map<pair<int,int>,int> mp;
+    vector<int> v;
+    int i, n = A.size();
+    sort(A.begin(),A.end());
+    sort(B.begin(),B.end());
+    pq.push({A[n-1]+B[n-1],{n-1,n-1}});
+    mp[{n-1,n-1}] = 1;
+    i = 0;
+    while(i < C)
+    {
+        auto p = pq.top();
+        pq.pop();
+        v.push_back(p.first);
+        int l = p.second.first, r = p.second.second;
+        if(l >= 0 && mp[{l-1,r}] == 0)
+        {
+            pq.push({A[l-1]+B[r],{l-1,r}});
+            mp[{l-1,r}] = 1;
+        }
+        if(r >= 0 && mp[{l,r-1}] == 0)
+        {
+            pq.push({A[l]+B[r-1],{l,r-1}});
+            mp[{l,r-1}] = 1;
+        }
+        i++;
+    }
+    return v;
+}

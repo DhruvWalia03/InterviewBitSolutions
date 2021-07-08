@@ -1,0 +1,38 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+DELHIVERY
+FLIPKART
+
+Problem Description
+
+Given an 1D integer array A of size N you have to find and return the B largest elements of the array A.
+NOTE:
+Return the largest B elements in any order you like.
+
+Input 1:
+ A = [11, 3, 4]
+ B = 2
+
+Output 1:
+ [11, 4]
+
+Explanation 1:
+ The two largest elements of A are 11 and 4
+
+Solution is below: 
+*/
+
+vector<int> Solution::solve(vector<int> &A, int B) {
+    sort(A.rbegin(),A.rend());
+    vector<int> v;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(i == B)
+            return v;
+        v.push_back(A[i]);
+    }
+    return v;
+}
