@@ -1,0 +1,30 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+MICROSOFT
+YAHOO
+GOOGLE
+AMAZON
+
+Given an array of size n, find the majority element. The majority element is the element that appears more than floor(n/2) times.
+You may assume that the array is non-empty and the majority element always exist in the array.
+
+Example :
+Input : [2, 1, 2]
+Return  : 2 which occurs 2 times which is greater than 3/2. 
+
+Solution is below: 
+*/
+
+int Solution::majorityElement(const vector<int> &A) {
+    map<int,int> mp;
+    int i,n = A.size();
+    for(i = 0; i < n;i++)
+        mp[A[i]]++;
+    for(auto f: mp)
+    {
+        if(f.second > n/2)
+            return f.first;
+    }
+}

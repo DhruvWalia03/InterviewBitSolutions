@@ -1,0 +1,51 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+AJIO
+APPLE
+FAB
+FLIPKART
+MICROSOFT
+
+Problem Description
+Given an 2D integer array A of size N x 2 denoting time intervals of different meetings.
+Where:
+  A[i][0] = start time of the ith meeting.
+  A[i][1] = end time of the ith meeting.
+
+Find the minimum number of conference rooms required so that all meetings can be done.
+
+Input 1:
+ A = [      [0, 30]
+            [5, 10]
+            [15, 20]
+     ]
+
+Output 1:
+ 2
+
+Explanation 1:
+ Meeting one can be done in conference room 1 form 0 - 30.
+ Meeting two can be done in conference room 2 form 5 - 10.
+ Meeting one can be done in conference room 2 form 15 - 20 as it is free in this interval.
+
+Solution is below: 
+*/
+
+int Solution::solve(vector<vector<int> > &A) {
+    map<int,int> mp;
+    int i,n = A.size(),x = 0,ans = 0;
+    for(i = 0;i < n;i++)
+    {
+        mp[A[i][0]]++;
+        mp[A[i][1]]--;
+    }
+    for(auto f:mp)
+    {
+        x += f.second;
+        ans = max(ans,x);
+    }
+    return ans;
+}

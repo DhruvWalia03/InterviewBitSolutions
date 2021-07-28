@@ -1,0 +1,41 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+MICROSOFT
+FLIPKART
+AMAZON
+
+There are N children standing in a line. Each child is assigned a rating value.
+You are giving candies to these children subjected to the following requirements:
+  1. Each child must have at least one candy.
+  2. Children with a higher rating get more candies than their neighbors.
+What is the minimum candies you must give?
+
+Example:
+Input 2:
+    A = [1, 5, 2, 1]
+Output 2:
+    7
+Explanation 2:
+    Candies given = [1, 3, 2, 1]
+
+Solution is below: 
+*/
+
+int Solution::candy(vector<int> &A) {
+
+    int i,n = A.size(),ans = n;
+    vector<int> l(n,0),r(n,0);
+    for(i = 1;i < n;i++)
+        if(A[i] > A[i-1])
+            l[i] = l[i-1]+1;
+
+    for(i = n-2;i >= 0;i--)
+        if(A[i] > A[i+1])
+            r[i] = r[i+1]+1;
+            
+    for(i = 0; i < n;i++)
+        ans += max(l[i],r[i]);
+    return ans;
+}

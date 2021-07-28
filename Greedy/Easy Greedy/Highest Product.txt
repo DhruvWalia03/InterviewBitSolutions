@@ -1,0 +1,31 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+COURSERA
+AMAZON
+
+Given an array A, of N integers A.
+Return the highest product possible by multiplying 3 numbers from the array.
+NOTE:  Solution will fit in a 32-bit signed integer.
+
+Input 1:
+A = [1, 2, 3, 4]
+
+Output 1:
+24
+
+Explanation 1:
+2 * 3 * 4 = 24
+
+Solution is below: 
+*/
+
+int Solution::maxp3(vector<int> &A) {
+
+    sort(A.begin(),A.end());
+    int ans1 = 0, ans2 = 0,n = A.size();
+    ans2 = A[n-1] * A[n-2] * A[n-3];
+    ans1 = A[0] * A[1] * A[n-1];
+    return max(ans1,ans2);
+}
