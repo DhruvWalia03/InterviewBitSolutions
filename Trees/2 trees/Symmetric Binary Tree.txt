@@ -1,0 +1,59 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+Example :
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+The above binary tree is symmetric. 
+
+But the following is not:
+    1
+   / \
+  2   2
+   \   \
+   3    3
+
+Return 0 / 1 ( 0 for false, 1 for true ) for this problem
+
+Solution is below: 
+*/
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+vector<int> ans;
+void inorder(TreeNode *A)
+{
+    if(A == NULL)
+        return;
+    inorder(A->left);
+    ans.push_back(A->val);
+    inorder(A->right);
+}
+
+int Solution::isSymmetric(TreeNode* A) {
+    ans.clear();
+    inorder(A);
+    if(ans.size() %2 == 0)
+        return 0;
+    for(int i = 0,j = ans.size()-1; i < ans.size(); i++, j--)
+    {
+        if(ans[i] != ans[j])
+            return 0;
+    }
+    return 1;
+}

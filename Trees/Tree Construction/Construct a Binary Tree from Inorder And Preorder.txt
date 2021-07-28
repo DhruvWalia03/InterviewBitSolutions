@@ -1,0 +1,67 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+MICROSOFT
+
+Given preorder and inorder traversal of a tree, construct the binary tree.
+Note: You may assume that duplicates do not exist in the tree.
+
+Example :
+Input :
+        Preorder : [1, 2, 3]
+        Inorder  : [2, 1, 3]
+Return :
+            1
+           / \
+          2   3
+
+Solution is below: 
+*/
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int cnt = 0;
+map<int,int> mp;
+vector<TreeNode*> v;
+TreeNode* func(int start,int end,vector<int> &A)
+{
+    if(start > end)
+        return NULL;
+    int i = ++cnt;
+    if(start == end)
+    {
+        v[start]->left = NULL;
+        v[start]->right = NULL;
+        return v[start];
+    }
+    v[mp[A[i]]]->left = func(start,mp[A[i]]-1,A);
+    v[mp[A[i]]]->right = func(mp[A[i]]+1,end,A);
+    return v[mp[A[i]]];
+}
+
+
+TreeNode* Solution::buildTree(vector<int> &A, vector<int> &B) {
+
+    cnt = 0;
+    v.clear();
+    mp.clear();
+    int i,n = A.size();
+    for(i = 0; i < n;i++)
+    {
+        mp[B[i]] = i;
+        TreeNode *t = new TreeNode(B[i]);
+        v.push_back(t);
+    }
+    v[mp[A[0]]]->left = func(0,mp[A[0]]-1,A);
+    v[mp[A[0]]]->right = func(mp[A[0]]+1,n-1,A);
+    return v[mp[A[0]]];
+}

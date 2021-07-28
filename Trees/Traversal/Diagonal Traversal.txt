@@ -1,0 +1,74 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+DE SHAW
+
+Problem Description
+
+Consider lines of slope -1 passing between nodes.
+Given a Binary Tree A containing N nodes, return all diagonal elements in a binary tree belonging to same line.
+
+NOTE:
+ See Sample Explanation for better understanding.
+ Order does matter in the output.
+ To get the same order as in the output traverse the tree same as we do in pre-order traversal.
+
+Input 1:
+
+            1
+          /   \
+         4      2
+        / \      \
+       8   5      3
+          / \    /
+         9   7  6
+
+Output 1:
+ [1, 2, 3, 4, 5, 7, 6, 8, 9]
+
+Explanation 1:
+ 1) Diagonal 1 contains [1, 2, 3]
+ 2) Diagonal 2 contains [4, 5, 7, 6]
+ 3) Diagonal 3 contains [8, 9]
+
+Solution is below: 
+*/
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+vector<int> ans;
+queue<TreeNode*> q;
+void func(TreeNode *A)
+{
+    if(A == NULL)
+        return;
+    ans.push_back(A->val);
+    if(A->left != NULL)
+        q.push(A->left);
+    func(A->right);
+    return;
+}
+
+vector<int> Solution::solve(TreeNode* A) {
+
+    ans.clear();
+    if(A == NULL)
+        return ans;
+    q.push(A);
+    while(!q.empty())
+    {
+        func(q.front());
+        q.pop();
+    }
+    return ans;
+}

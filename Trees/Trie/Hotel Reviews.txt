@@ -1,0 +1,70 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+BOOKING.COM
+
+Problem Description
+
+Given a set of reviews provided by the customers for different hotels and a string containing Good Words, you need to sort the reviews in descending order according to their Goodness Value (Higher goodness value first). We define the Goodness Value of a string as the number of Good Words in that string.
+NOTE: Sorting should be stable. If review i and review j have the same Goodness Value then their original order would be preserved.
+You are expected to use Trie in an Interview for such problems
+
+
+Input 1:
+ A = "cool_ice_wifi"
+ B = ["water_is_cool", "cold_ice_drink", "cool_wifi_speed"]
+
+Output 1:
+ [2, 0, 1]
+
+Explanation 1:
+ sorted reviews are ["cool_wifi_speed", "water_is_cool", "cold_ice_drink"]
+
+Solution is below: 
+*/
+
+static bool compare(pair<int,int> &x,pair<int,int> &y)
+{
+    return ( x.first > y.first || 
+        ((x.first == y.first) && x.second < y.second));
+}
+
+vector<int> Solution::solve(string A, vector<string> &B) {
+
+    A += "_";
+    int i,n = A.length(),m = B.size();
+    map<string,int> mp;
+    vector<int> v;
+    vector<pair<int,int>> q;
+    string s = "";
+    for(i = 0;i < n;i++)
+    {
+        if(A[i] == '_')
+        {
+            mp[s]++;
+            s = "";
+        }
+        else s += A[i];
+    }
+    for(int j = 0;j < m;j++)
+    {
+        int x = 0; B[j] += "_";
+        s = "";
+        for(i = 0;i < B[j].length();i++)
+        {
+            if(B[j][i] == '_')
+            {
+                if(mp[s] != 0)
+                    x++;
+                s = "";
+            }
+            else s += B[j][i];
+        }
+        q.push_back({x,j});
+    }
+    sort(q.begin(),q.end(),compare);
+    for(auto f :q)
+        v.push_back(f.second);
+    return v;
+}

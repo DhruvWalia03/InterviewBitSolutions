@@ -1,0 +1,95 @@
+/*
+This Solution is By Dhruv Walia
+
+Asked In:
+AMAZON
+Problem Description
+
+Given two Binary Trees A and B, you need to merge them in a single binary tree.
+The merge rule is that if two nodes overlap, then sum of node values is the new value of the merged node.
+Otherwise, the non-null node will be used as the node of new tree.
+
+Input 1:
+
+ A =   2
+      / \
+     1   4
+    /
+   5
+
+B =   3
+     / \
+     6  1
+     \   \
+      2   7
+
+Output 1:
+
+     5
+    / \
+   7   5
+  / \   \ 
+ 5   2   7
+
+Explanation 1:
+ After merging both the trees you get:
+     5
+    / \
+   7   5
+  / \   \ 
+ 5   2   7
+
+Solution is below: 
+*/
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+
+TreeNode* Solution::solve(TreeNode* A, TreeNode* B) {
+
+    if(A == NULL)
+        return B;
+    if(B == NULL)
+        return A;
+    TreeNode *head = new TreeNode(A->val + B->val);
+    queue <pair<pair<TreeNode*,TreeNode*>,TreeNode*>> q;
+    q.push({{head,A},B});
+    while(!q.empty())
+    {
+        TreeNode *curr = q.front().first.first;
+        TreeNode *a = q.front().first.second;
+        TreeNode *b = q.front().second;
+        q.pop();
+        if(a->left != NULL && b->left != NULL)
+        {
+            TreeNode *t = new TreeNode(a->left->val + b->left->val);
+            curr->left = t;
+            q.push({{curr->left,a->left},b->left});
+        }
+        else if(a->left != NULL)
+            curr->left = a->left;
+        else if(b->left != NULL)
+            curr->left = b->left;
+        else curr->left = NULL;
+        if(a->right != NULL && b->right != NULL)
+        {
+            TreeNode *t = new TreeNode(a->right->val + b->right->val);
+            curr->right = t;
+            q.push({{curr->right,a->right},b->right});
+        }
+        else if(a->right != NULL)
+            curr->right = a->right;
+        else if(b->right != NULL)
+            curr->right = b->right;
+        else curr->right = NULL;
+    }
+    return head;
+}
